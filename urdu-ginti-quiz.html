@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Urdu Ginti Quiz 1–100</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;700&family=Fraunces:wght@600;800&family=Inter:wght@400;600&display=swap">
+<style>
+:root{--bg:#eef3f1;--card:#fff;--ink:#12302b;--mute:#5b736e;--line:#c9d8d4;--acc:#0f766e;--accInk:#fff;--ok:#1b7a3e;--okBg:#dff3e6;--bad:#b3261e;--badBg:#fbe3e0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a18;--card:#162623;--ink:#e6f1ee;--mute:#8fa8a2;--line:#2b423e;--acc:#2dd4bf;--accInk:#07201c;--ok:#6ee7a0;--okBg:#143824;--bad:#ff8a80;--badBg:#3d1a17}}
+:root[data-theme="dark"]{--bg:#0e1a18;--card:#162623;--ink:#e6f1ee;--mute:#8fa8a2;--line:#2b423e;--acc:#2dd4bf;--accInk:#07201c;--ok:#6ee7a0;--okBg:#143824;--bad:#ff8a80;--badBg:#3d1a17}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;min-height:100vh}
+main{max-width:600px;margin:0 auto;padding:20px 16px 40px}
+h1{font:800 clamp(28px,7vw,40px)/1.1 Fraunces,Georgia,serif;margin:8px 0 4px}
+.sub{color:var(--mute);margin:0 0 16px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--line);padding:4px;border-radius:14px;margin-bottom:16px}
+.tabs button{font:600 16px Inter,sans-serif;border:0;border-radius:11px;padding:11px;background:transparent;color:var(--ink);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+label.f{display:block;font-weight:600;margin:16px 0 6px}
+label.f:first-child{margin-top:0}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button,.opt,.btn,.ghost{font:inherit;cursor:pointer;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px}
+.seg button[aria-pressed="true"]{background:var(--acc);color:var(--accInk);border-color:var(--acc)}
+.btn{background:var(--acc);color:var(--accInk);border-color:var(--acc);font-weight:600;width:100%;padding:14px;margin-top:20px}
+.btn.alt{background:var(--card);color:var(--ink);border-color:var(--line);margin-top:10px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.chk{display:flex;gap:10px;align-items:center;margin-top:14px}
+.note{color:var(--mute);font-size:14px;margin:6px 0 0}
+input[type=number]{font:inherit;width:90px;padding:9px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .25s}
+#tbar i{background:var(--bad);transition:none}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:14px;margin-bottom:12px}
+.q{text-align:center;padding:10px 0 4px}
+.q .ask{color:var(--mute);font-size:14px}
+.big{font:700 clamp(44px,14vw,72px)/1.9 "Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif;direction:rtl}
+.bign{font:800 clamp(56px,18vw,96px)/1.1 Fraunces,Georgia,serif;margin:12px 0}
+.rom{color:var(--mute);min-height:24px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.opt{font-size:22px;font-weight:600;padding:12px 8px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.opt.ur{font:700 26px/1.9 "Noto Nastaliq Urdu",serif;direction:rtl}
+.opt small{font:400 13px Inter,sans-serif;color:var(--mute)}
+.opt.ok{background:var(--okBg);border-color:var(--ok);color:var(--ok)}
+.opt.no{background:var(--badBg);border-color:var(--bad);color:var(--bad)}
+.opt:disabled{cursor:default}
+.fb{min-height:28px;margin-top:14px;text-align:center;font-weight:600}
+.score{font:800 64px/1 Fraunces,serif;text-align:center;margin:6px 0}
+.stats{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 18px;color:var(--mute);font-size:14px;margin-bottom:8px}
+.wr{margin:14px 0 0;padding:0;list-style:none}
+.wr li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.wr .u,.cell .ur{font:700 24px/1.8 "Noto Nastaliq Urdu",serif}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:14px}
+.cell{border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;cursor:pointer;background:var(--card);color:var(--ink);font:inherit}
+.cell b{font:800 18px Fraunces,serif;display:block}
+.cell small{color:var(--mute);display:block}
+.fc{margin-top:14px;border:1.5px solid var(--line);border-radius:16px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;padding:16px;text-align:center;background:var(--card);color:var(--ink);width:100%;font:inherit}
+.fcnt{display:flex;gap:8px;margin-top:10px}
+.fcnt button{flex:1}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>Urdu Ginti Quiz</h1>
+<p class="sub">Urdu gintiyan 1 se 100 tak: pehle seekhein, phir test dein.</p>
+<div class="tabs" role="tablist">
+  <button role="tab" id="tLearn" aria-selected="true">Seekhein</button>
+  <button role="tab" id="tQuiz" aria-selected="false">Quiz</button>
+</div>
+
+<section id="learn" class="card">
+  <label class="f">Kaun si gintiyan seekhni hain?</label>
+  <div class="seg" id="lRange"></div>
+  <label class="f">Kaise seekhein?</label>
+  <div class="seg" id="lView"></div>
+  <div class="grid" id="lgrid"></div>
+  <div id="fwrap" hidden>
+    <button class="fc" id="fcard" aria-live="polite"></button>
+    <div class="fcnt">
+      <button class="ghost" id="fPrev">Pichla</button>
+      <button class="ghost" id="fShuf">Mix karein</button>
+      <button class="ghost" id="fNext">Agla</button>
+    </div>
+    <p class="note">Card par tap karein to Urdu lafz nazar aayega.</p>
+  </div>
+  <p class="note" id="sayNote" hidden>Kisi bhi number par tap karne se awaaz sunai de sakti hai (device ki Urdu voice par depend karta hai).</p>
+  <button class="btn" id="toQuiz">In gintiyon ka quiz dein</button>
+</section>
+
+<section id="setup" class="card" hidden>
+  <label class="f">Kaun si gintiyan?</label>
+  <div class="seg" id="qRange"></div>
+  <label class="f">Sawal kis tarah ke hon?</label>
+  <div class="seg" id="qMode"></div>
+  <label class="f">Mushkil level</label>
+  <div class="seg" id="qDiff"></div>
+  <p class="note" id="diffNote"></p>
+  <label class="f">Kitne sawal?</label>
+  <div class="seg" id="qCount"></div>
+  <div id="cwrap" hidden style="margin-top:10px"><input type="number" id="cn" min="1" max="100" value="15" aria-label="Sawalon ki tadaad"> <span class="note">(1 se 100 tak)</span></div>
+  <label class="chk" id="hintRow"><input type="checkbox" id="hint"> Roman Urdu hint dikhao</label>
+  <button class="btn" id="start">Quiz shuru karein</button>
+</section>
+
+<section id="play" class="card" hidden>
+  <div class="bar"><i id="prog"></i></div>
+  <div class="bar" id="tbar" hidden><i id="tfill"></i></div>
+  <div class="meta"><span id="cnt"></span><span id="sc"></span></div>
+  <div class="q" id="qbox"></div>
+  <div class="opts" id="opts"></div>
+  <div class="fb" id="fb" aria-live="polite"></div>
+  <button class="btn" id="next" hidden>Agla sawal</button>
+</section>
+
+<section id="end" class="card" hidden>
+  <div class="score" id="final"></div>
+  <p class="sub" id="msg" style="text-align:center"></p>
+  <div class="stats" id="stats"></div>
+  <ul class="wr" id="wrong"></ul>
+  <button class="btn" id="again">Dobara khelein</button>
+  <button class="btn alt" id="retry" hidden>Sirf galat wale dobara</button>
+  <button class="btn alt" id="home">Settings badlein</button>
+</section>
+</main>
+<script>
+const RAW="ایک|ek;دو|do;تین|teen;چار|chaar;پانچ|paanch;چھ|chhe;سات|saat;آٹھ|aath;نو|nau;دس|das;گیارہ|gyarah;بارہ|barah;تیرہ|terah;چودہ|chaudah;پندرہ|pandrah;سولہ|solah;سترہ|satrah;اٹھارہ|athaarah;انیس|unnees;بیس|bees;اکیس|ikkees;بائیس|baaees;تیئس|teyees;چوبیس|chaubees;پچیس|pachchees;چھبیس|chhabbees;ستائیس|sattaaees;اٹھائیس|athaaees;انتیس|untees;تیس|tees;اکتیس|iktees;بتیس|battees;تینتیس|taintees;چونتیس|chauntees;پینتیس|paintees;چھتیس|chhattees;سینتیس|saintees;اڑتیس|artees;انتالیس|untaalees;چالیس|chaalees;اکتالیس|iktaalees;بیالیس|bayaalees;تینتالیس|taintaalees;چوالیس|chavaalees;پینتالیس|paintaalees;چھیالیس|chhiyaalees;سینتالیس|saintaalees;اڑتالیس|artaalees;انچاس|unchaas;پچاس|pachaas;اکیاون|ikyaavan;باون|baavan;ترپن|tirpan;چون|chauvan;پچپن|pachpan;چھپن|chhappan;ستاون|sattaavan;اٹھاون|athaavan;انسٹھ|unsath;ساٹھ|saath;اکسٹھ|iksath;باسٹھ|baasath;تریسٹھ|tirsath;چونسٹھ|chaunsath;پینسٹھ|painsath;چھیاسٹھ|chhiyaasath;سڑسٹھ|sarsath;اڑسٹھ|arsath;انہتر|unhattar;ستر|sattar;اکہتر|ikhattar;بہتر|bahattar;تہتر|tihattar;چوہتر|chauhattar;پچھتر|pachhattar;چھہتر|chhihattar;ستتر|sattattar;اٹھہتر|athhattar;اناسی|unaasi;اسی|assi;اکیاسی|ikyaasi;بیاسی|bayaasi;تراسی|tiraasi;چوراسی|churaasi;پچاسی|pachaasi;چھیاسی|chhiyaasi;ستاسی|sattaasi;اٹھاسی|athaasi;نواسی|navaasi;نوے|nabbe;اکانوے|ikaanve;بانوے|baanve;ترانوے|tiraanve;چورانوے|churaanve;پچانوے|pachaanve;چھیانوے|chhiyaanve;ستانوے|sattaanve;اٹھانوے|athaanve;ننانوے|ninnaanve;سو|sau";
+const N=RAW.split(";").map((s,i)=>{const p=s.split("|");return{n:i+1,u:p[0],r:p[1]}});
+const $=id=>document.getElementById(id);
+const shuf=a=>{for(let j=a.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[a[j],a[k]]=[a[k],a[j]]}return a};
+const RANGES=[["1-10","1–10"],["1-20","1–20"],["21-50","21–50"],["51-100","51–100"],["70-100","70–100 (mushkil)"],["1-100","1–100"]];
+const cfg={lRange:"1-20",lView:"list",qRange:"1-100",qMode:"mix",qDiff:"medium",qCount:"10"};
+const DIFF={easy:{k:3,w:30,t:0,note:"Easy: 3 options, Roman hint saath, door door ke options."},medium:{k:4,w:12,t:0,note:"Medium: 4 options, nazdeek wale numbers."},hard:{k:6,w:5,t:8,note:"Hard: 6 options, bohat milte julte numbers, aur har sawal par sirf 8 second."}};
+function seg(id,key,opts,cb){const el=$(id);el.innerHTML="";opts.forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.dataset.v=v;b.setAttribute("aria-pressed",cfg[key]===v);b.onclick=()=>{cfg[key]=v;[...el.children].forEach(x=>x.setAttribute("aria-pressed",x===b));cb&&cb()};el.appendChild(b)})}
+function tab(which){
+  ["learn","setup","play","end"].forEach(s=>$(s).hidden=s!==which);
+  $("tLearn").setAttribute("aria-selected",which==="learn");$("tQuiz").setAttribute("aria-selected",which!=="learn");
+  if(which!=="play")clearTimer();
+}
+$("tLearn").onclick=()=>tab("learn");
+$("tQuiz").onclick=()=>tab("setup");
+
+/* speech */
+const canSay="speechSynthesis" in window;
+function say(x){if(!canSay)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(x.u);u.lang="ur-PK";u.rate=.8;speechSynthesis.speak(u)}catch(e){}}
+if(canSay)$("sayNote").hidden=false;
+
+/* learn */
+const fc={list:[],i:0,flip:false};
+function lrange(){const[a,b]=cfg.lRange.split("-").map(Number);return N.filter(x=>x.n>=a&&x.n<=b)}
+function learnRender(reset){
+  const list=lrange();const flash=cfg.lView==="flash";
+  $("lgrid").hidden=flash;$("fwrap").hidden=!flash;
+  if(!flash){
+    $("lgrid").innerHTML=list.map(x=>'<button class="cell" data-n="'+x.n+'"><b>'+x.n+'</b><span class="ur">'+x.u+'</span><small>'+x.r+'</small></button>').join("");
+  }else{
+    if(reset||!fc.list.length){fc.list=list.slice();fc.i=0;fc.flip=false}
+    const x=fc.list[fc.i];
+    $("fcard").innerHTML=fc.flip
+      ?'<div class="big">'+x.u+'</div><div style="font-size:20px">'+x.r+'</div><div class="note">'+x.n+'</div>'
+      :'<div class="bign">'+x.n+'</div><div class="note">'+(fc.i+1)+' / '+fc.list.length+'</div>';
+  }
+}
+$("lgrid").onclick=e=>{const c=e.target.closest(".cell");if(c)say(N[c.dataset.n-1])};
+$("fcard").onclick=()=>{fc.flip=!fc.flip;learnRender();if(fc.flip)say(fc.list[fc.i])};
+$("fNext").onclick=()=>{fc.i=(fc.i+1)%fc.list.length;fc.flip=false;learnRender()};
+$("fPrev").onclick=()=>{fc.i=(fc.i-1+fc.list.length)%fc.list.length;fc.flip=false;learnRender()};
+$("fShuf").onclick=()=>{shuf(fc.list);fc.i=0;fc.flip=false;learnRender()};
+$("toQuiz").onclick=()=>{cfg.qRange=cfg.lRange;buildQuizSegs();tab("setup")};
+
+/* quiz setup */
+function buildQuizSegs(){
+  seg("qRange","qRange",RANGES);
+  seg("qMode","qMode",[["mix","Mix (dono)"],["u2n","Sirf Urdu dikhe"],["n2u","Sirf English/number dikhe"]]);
+  seg("qDiff","qDiff",[["easy","Easy"],["medium","Medium"],["hard","Hard"]],diffUI);
+  seg("qCount","qCount",[["10","10"],["20","20"],["30","30"],["custom","Apna number"]],()=>{$("cwrap").hidden=cfg.qCount!=="custom"});
+  $("cwrap").hidden=cfg.qCount!=="custom";diffUI();
+}
+function diffUI(){$("diffNote").textContent=DIFF[cfg.qDiff].note;$("hintRow").hidden=cfg.qDiff==="easy"}
+seg("lRange","lRange",RANGES,()=>learnRender(true));
+seg("lView","lView",[["list","Poori list"],["flash","Flashcards"]],()=>learnRender(true));
+buildQuizSegs();learnRender(true);
+
+/* quiz */
+let qs=[],i=0,score=0,wrong=[],lo=1,hi=100,answered=false,streak=0,best=0,t0=0,timer=null,showHint=false,D=DIFF.medium;
+function clearTimer(){if(timer){clearInterval(timer);timer=null}}
+function start(list){
+  [lo,hi]=cfg.qRange.split("-").map(Number);D=DIFF[cfg.qDiff];
+  showHint=cfg.qDiff==="easy"||$("hint").checked;
+  if(!list){
+    const pool=N.filter(x=>x.n>=lo&&x.n<=hi);
+    let c=cfg.qCount==="custom"?parseInt($("cn").value,10):+cfg.qCount;
+    c=Math.max(1,Math.min(100,c||10));
+    let arr=[];while(arr.length<c)arr=arr.concat(shuf(pool.slice()));
+    list=arr.slice(0,c);
+  }
+  qs=list.map(x=>({x,t:cfg.qMode==="mix"?(Math.random()<.5?"u2n":"n2u"):cfg.qMode}));
+  i=0;score=0;wrong=[];streak=0;best=0;t0=Date.now();tab("play");render();
+}
+function distract(x){
+  let w=D.w,c;
+  do{c=N.filter(y=>y.n!==x.n&&Math.abs(y.n-x.n)<=w&&y.n>=lo&&y.n<=hi);w*=2}while(c.length<D.k-1&&w<200);
+  if(c.length<D.k-1)c=N.filter(y=>y.n!==x.n);
+  return shuf(c).slice(0,D.k-1);
+}
+function render(){
+  answered=false;const q=qs[i],x=q.x;
+  $("prog").style.width=(i/qs.length*100)+"%";
+  $("cnt").textContent="Sawal "+(i+1)+" / "+qs.length;
+  $("sc").textContent="Sahi: "+score+(streak>1?" · Lagatar: "+streak:"");
+  $("fb").textContent="";$("next").hidden=true;
+  $("qbox").innerHTML=q.t==="u2n"
+    ?'<div class="ask">Ye kitne hain?</div><div class="big">'+x.u+'</div><div class="rom">'+(showHint?x.r:"")+'</div>'
+    :'<div class="ask">Is ko Urdu mein kya kehte hain?</div><div class="bign">'+x.n+'</div><div class="rom"></div>';
+  $("opts").innerHTML="";
+  shuf([x,...distract(x)]).forEach(o=>{
+    const b=document.createElement("button");b.className="opt"+(q.t==="n2u"?" ur":"");b.dataset.n=o.n;
+    b.innerHTML=q.t==="u2n"?String(o.n):o.u+(showHint?"<small>"+o.r+"</small>":"");
+    b.onclick=()=>answer(b,o);$("opts").appendChild(b);
+  });
+  clearTimer();$("tbar").hidden=!D.t;
+  if(D.t){const end=Date.now()+D.t*1000;$("tfill").style.width="100%";
+    timer=setInterval(()=>{const left=end-Date.now();$("tfill").style.width=Math.max(0,left/(D.t*10))+"%";if(left<=0){clearTimer();answer(null,null)}},100)}
+}
+function answer(b,o){
+  if(answered)return;answered=true;clearTimer();
+  const x=qs[i].x;
+  [...$("opts").children].forEach(c=>{c.disabled=true;if(+c.dataset.n===x.n)c.classList.add("ok")});
+  if(o&&o.n===x.n){score++;streak++;best=Math.max(best,streak);$("fb").textContent="Sahi! "+x.n+" = "+x.r}
+  else{streak=0;if(b)b.classList.add("no");wrong.push(x);$("fb").textContent=(o?"":"Waqt khatam. ")+"Sahi jawab: "+x.n+" = "+x.r}
+  $("sc").textContent="Sahi: "+score+(streak>1?" · Lagatar: "+streak:"");
+  $("next").textContent=i===qs.length-1?"Result dekhein":"Agla sawal";
+  $("next").hidden=false;$("next").focus();
+}
+function finish(){
+  $("prog").style.width="100%";tab("end");
+  const p=Math.round(score/qs.length*100),secs=Math.round((Date.now()-t0)/1000);
+  $("final").textContent=score+" / "+qs.length;
+  $("msg").textContent=p===100?"Shabash! Sab sahi.":p>=70?"Bohat acha, thori aur mashq.":"Mashq jaari rakhein, aap kar lenge.";
+  let prev=null;const key="ug|"+cfg.qRange+"|"+cfg.qDiff+"|"+cfg.qMode;
+  try{prev=parseInt(localStorage.getItem(key),10);if(isNaN(prev)||p>prev)localStorage.setItem(key,String(p))}catch(e){prev=null}
+  $("stats").innerHTML="<span>"+p+"%</span><span>Waqt: "+secs+" sec</span><span>Sabse lambi lagatar: "+best+"</span>"+(prev!=null&&!isNaN(prev)?"<span>Pichla behtareen: "+prev+"%</span>":"");
+  $("wrong").innerHTML=wrong.map(x=>'<li><span class="u">'+x.u+'</span><span>'+x.n+' · '+x.r+'</span></li>').join("");
+  $("retry").hidden=!wrong.length;
+}
+$("start").onclick=()=>start();
+$("next").onclick=()=>{i++;i<qs.length?render():finish()};
+$("again").onclick=()=>start();
+$("retry").onclick=()=>start(shuf(wrong.slice()));
+$("home").onclick=()=>tab("setup");
+</script>
+</body>
+</html>
